@@ -1,0 +1,33 @@
+.basicModalWrapper{
+   position:fixed;
+   top:0;
+   left:0;
+   width:100%;
+   height:100%;
+}
+.basicModalBacker{
+   position:absolute;
+   top:0; left:0;
+   width:100%;
+   height:100%;
+   background-color:black;
+   opacity:0.75;
+}
+.basicModalClient{
+   position:absolute;
+   top:5%; left:5%;
+   height:90%; width:90%;
+   background-color:seashell;
+   padding:5px; overflow:scroll;
+}
+.basicModalCloser{
+   position:fixed;
+   top:1%;
+   right:1%;
+   background-color:white;
+   padding:3px;
+   cursor:pointer;
+}
+.basicModalCloser::BEFORE{
+   content:"X"
+}
