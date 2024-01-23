@@ -1,0 +1,106 @@
+#CookieManager-Interface{
+   position:fixed;
+   text-align:center;
+   transition:height 0.5s;
+   bottom:0;
+   left:0;
+   width:100%;
+   max-height:100%;
+   box-sizing:border-box;
+   padding:8px;
+   background-color:#FAF9F6;
+   z-index:100;
+   overflow-y:auto;
+   border:1px solid maroon;
+   color:black;
+}
+#CookieManager-Interface p{
+   text-align:left;
+}
+#CookieManager-CloseHolder{
+   text-align:right;
+   padding:3px;
+   position:sticky;
+   top:0;
+   height:0;
+}
+
+#CookieManager-ButtonHold>button{
+   margin:8px;
+}
+
+#CookieManager-Details{
+   padding:8px
+}
+#CookieManager-Details:not(:empty){
+   border-top:3px solid yellow;
+   padding-bottom:20vh;
+}
+
+.CookieManager-CookieDetails, .CookieManager-Manager-Cookie{
+   display:inline-block;
+   box-sizing:border-box;
+   padding:8px;
+   margin-top:5px;
+   margin-bottom:5px;
+   width:90%;
+}
+.CookieManager-CookieDetails p, .CookieManager-Manager-Cookie p{
+   font-size:100%;
+}
+.CookieManager-PermissionPlaceholder details[open], .CookieManager-Manager-Category details[open]{
+   border:1px solid gold;
+   display:inline-block;
+   padding:8px;
+   width:98%;
+   box-sizing:border-box;
+   border-radius:25px;
+   max-width:620px;
+}
+
+.CookieManager-PermissionPlaceholder details, .CookieManager-Manager-Category details{
+   margin-top:8px;
+}
+
+.CookieManager-PermissionPlaceholder details summary::before{
+   content:'See Details';
+}
+.CookieManager-PermissionPlaceholder details[open] summary::before{
+   content:'Hide Details';
+}
+.CookieManager-PermissionPlaceholder button{
+  margin:8px;
+  
+}
+
+.CookieManager-Manager-Category details summary::before{
+   content:'See Cookies'
+}
+.CookieManager-Manager-Category details[open] summary::before{
+   content:'Hide Cookies'
+}
+
+.CookieManager-Manager-Category label{
+   margin: 4px;
+}
+
+.CookieManager-Manager-Category:not(:first-of-type){
+   border-top:3px solid black;
+   margin-top:9px;
+}
+.CookieManager-Manager-Cookie{
+   border-top:1px solid lightBlue;
+   border-bottom:1px solid lightBlue;
+}
+
+#CookieManager-Submit{
+   position:fixed;
+   right: 25px;
+   bottom:1%;
+   cursor:pointer;
+   padding:8px;
+   background-color:pink;
+   border:2px solid gold;
+   z-index:101;
+   
+}
