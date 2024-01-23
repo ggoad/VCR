@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Basic need-lots-of-times libraries -->
+<script src="el.js"></script>
+<script src="ob2.js"></script>
+<script src="fun2.js"></script>
+
+<!-- It's important for hist.js to come after VCR2.js --  hist.js is the  -->
+<script src="VCR2.js"></script>
+<script src="hist.js"></script>
+
+<script>
+// Declare a view controler. View controlers can be nested. 
+//  See VC.prototype.CAPTURE and VC.prototype.LAUNCH
+//  the argument is targetFunction a function that returns the element that the VC controls
+VCR.main=new VC(
+	function(){
+		return document.body;
+	}
+);
+
+
+// add a few views... the arguments are:
+//    name      (string)
+//    viewFunct (function of a view controler - in this case main) 
+
+VCR.main.REGISTER_view('home',function(a){
+
+	// a is a view contorler (VCR.main). 
+	//    a.GET_target(true) fires the target function and true indicates to empty the target
+   _el.APPEND(a.GET_target(true), [
+		"Home",
+		_el.CREATE('button','','',{onclick:function(){
+			VCR.main.CHANGE("first");
+		}},["First"]),
+		_el.CREATE('button','','',{onclick:function(){
+			VCR.main.CHANGE("second");
+		}},["Second"]),
+   ]);
+});
+
+  // another view
+VCR.main.REGISTER_view('first',function(a){
+   _el.APPEND(a.GET_target(true), [
+		"First",
+		_el.CREATE('button','','',{onclick:function(){
+			VCR.main.CHANGE("home");
+		}},["Home"]),
+	  
+   ]);
+});
+
+  // another view
+VCR.main.REGISTER_view('second',function(a){
+   _el.APPEND(a.GET_target(true), [
+		"Second",
+		_el.CREATE('button','','',{onclick:function(){
+			VCR.main.CHANGE("home");
+		}},["Home"]),
+   ]);
+});
+
+/*
+So, what we declared here is 3 views, 
+ that will empty out document.body and insert their own elements,
+ when we change VCR.main to any respective view
+*/
+
+</script>
+</head>
+<body onload="VCR.main.CHANGE();">
+
+</body>
+</html>
