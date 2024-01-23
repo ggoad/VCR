@@ -1,11 +1,14 @@
+/// this is normaly hooked into a template pipeline
+// `--CookieManager-StorageName--` can be whatever you want it to be
+// `--CookieManager-SiteCookies--` is the list of cookies you can ask permission for
+// 	see the comment above site cookies for examples
 CookieManager=(function(){ 
 	var permissions=localStorage.getItem('`--CookieManager-StorageName--`');
-	//var permissions=localStorage.getItem('CookieManagerTest');
+
 	var ret={
                 autoRender:true,
                 allowAllOnPlaceholder:false,
                 localStorageIndex:'`--CookieManager-StorageName--`',
-                //localStorageIndex:'CookieManagerTest',
                 /*siteCookies:{
                    test:{
                       name:'test',
