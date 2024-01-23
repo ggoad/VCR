@@ -1,5 +1,5 @@
 /* START _object */
-_ob=_object={
+_ob={
         COPY_proto:(function(){
 	  function Temp(){}
 	    return function(O){
