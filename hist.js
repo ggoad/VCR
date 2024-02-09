@@ -67,7 +67,13 @@ if(history && history.pushState){
 	  
    };
    onpopstate=function(){
-           var state=history.state.VCR;
+		   var state=history.state;
+           if(!state){
+              history.replaceState(_hist.lastState,'',location.href);
+              return;
+           }else{
+              state=state.VCR;
+           }
            _hist.GRAB_addr();
            _hist.logflag=false;
            for(var mem in state)
