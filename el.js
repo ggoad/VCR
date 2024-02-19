@@ -1,17 +1,22 @@
 /* START _element */
 _el={
+	// cancel an event
     CancelEvent:function(e){e.preventDefault(); e.cancelBubble=true;},
+	// move an id from 1 element to another 
     MoveId:function(id,el){
        (document.getElementById(id) || {}).id='';
        el.id=id;
     },
+	// this is a helper for CREATE
     PARSE_element:function(a){
        if(typeof a === "string"){return this.TEXT(a);}
        return a;
     },
-        REMOVE:function(e){
-                if(e && e.parentNode){e.parentNode.removeChild(e);}
-        },
+	// remove an element
+	REMOVE:function(e){
+		if(e && e.parentNode){e.parentNode.removeChild(e);}
+	},
+	// append an element to a parent, returns the parent
 	APPEND:function(p,c){
 		if(_ob.IS_array(c)){
 			for(var i=0; i<c.length; i++)
@@ -23,14 +28,30 @@ _el={
 		}
 		return p;
 	},
-        _APPEND:function(p,c){
-                if(Array.isArray(c)){
-                   c.forEach(function(a){p.appendChild(_el.PARSE_element(c));});
-                }else{p.appendChild(this.PARSE_element(c));}
-                
+	// append an element to a parent, returns the child
+	_APPEND:function(p,c){
+		if(Array.isArray(c)){
+		   c.forEach(function(a){p.appendChild(_el.PARSE_element(c));});
+		}else{p.appendChild(this.PARSE_element(c));}
+			
 
 		return c;
-        },
+	},
+	/* 
+		create an element: 
+			tp is the tag name 
+			id is id
+			className is className 
+			otherMemOb 
+				is anything to insert as a property on the element
+				two special properties:
+					'style'
+						and
+					'attributes'
+			append 
+				an array of elements to append to the created element
+				raw strings are created as text nodes
+	*/
 	CREATE:function(tp, id, className, otherMemOb, append){
 		var ret=document.createElement(tp);
 		if(id){
@@ -48,20 +69,22 @@ _el={
 						ret.style[s]=otherMemOb[mem][s];
 					}
 				}else if(mem === 'attributes'){
-                                        for(var a in otherMemOb[mem]){ret.setAttribute(a, otherMemOb[mem][a]);}
-                                }else{
+					for(var a in otherMemOb[mem]){ret.setAttribute(a, otherMemOb[mem][a]);}
+				}else{
 					ret[mem]=otherMemOb[mem];
 				}
 			}
 		}
-                if(append){
-                   this.APPEND(ret, append);
-                }
+		if(append){
+		   this.APPEND(ret, append);
+		}
 		return ret;
 	},
+	// create a text node
 	TEXT:function(txt){
 		return document.createTextNode(txt);
 	},
+	// removes all child elements
 	EMPTY:function(el){
 		if(el && el.childNodes){
 			for(var i=0; i<el.childNodes.length; i++)

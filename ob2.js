@@ -1,24 +1,27 @@
 /* START _object */
 _ob={
-        COPY_proto:(function(){
-	  function Temp(){}
-	    return function(O){
-	      if(typeof O != "object"){
-		throw TypeError("Object prototype may only be an Object or null");
-	      }
-		Temp.prototype=O;
-		var obj=new Temp();
-		Temp.prototype=null;
-	      return obj;
-	   };
+	// this is a legacy function. A long time ago, this was how you 'did' inheritance in JS
+	COPY_proto:(function(){
+		function Temp(){}
+		return function(O){
+			if(typeof O != "object"){
+				throw TypeError("Object prototype may only be an Object or null");
+			}
+			Temp.prototype=O;
+			var obj=new Temp();
+			Temp.prototype=null;
+			return obj;
+		};
 	})(),
+	// is Array polyfill
 	IS_array:function(a){
 		if(Array.isArray && Array.isArray(a)){
-                   return true;
-                }if(typeof a === "object" && a.constructor === Array){
+			return true;
+		}if(typeof a === "object" && a.constructor === Array){
 			return true;
 		}return false;
 	},
+	// combine 2 object into a new object
 	COMBINE:function(ob1, ob2){
 		ob1=ob1 || {};
 		ob2=ob2 || {};
@@ -27,6 +30,7 @@ _ob={
 		this.INSERT(ret, ob2);
 		return ret;
 	},
+	// insert members into a reciever object
 	INSERT:function(reciever, con){
 		con = con || {};
 		for(var mem in con)
@@ -34,37 +38,42 @@ _ob={
 			reciever[mem]=con[mem];
 		}
 	},
-        PARSE_default:function(def,set){
-           return this.COMBINE(def,set);
-        },
-        Keysort:function(obj, recur, depth){
-           depth=depth || 0;
-           depth++;
-           var ordered=Object.keys(obj).sort().reduce(function(o,key){
-              if(recur && typeof obj[key] === "object" && depth < 10){
-                 obj[key]=this.Keysort(obj[key], true, depth);
-              }
-              o[key]=obj[key];
-              return o;
-           });
-           return ordered;
-        },
-        COMPARE:function(ob1, ob2){
-            if(typeof ob1 !== "object" || typeof ob2 !== "object"){return false;}
-            if(Object.keys(ob1).length !== Object.keys(ob2).length){return false;}
-            var cmp=true;
-            for(var mem in ob1)
-            {
-               if(typeof ob1[mem] === "object"){
-                  cmp=this.COMPARE(ob1[mem], ob2[mem]);
-               }else{
-                  cmp=(ob1[mem] === ob2[mem]);
-               }
-               if(!cmp){return false;}
-            }
-            return true;
-        },
-        CLONE_depthLimit:20,
+	//  this could probably be removed
+	PARSE_default:function(def,set){
+	   return this.COMBINE(def,set);
+	},
+	// have an object sorted by the key values
+	Keysort:function(obj, recur, depth){
+	   depth=depth || 0;
+	   depth++;
+	   var ordered=Object.keys(obj).sort().reduce(function(o,key){
+		  if(recur && typeof obj[key] === "object" && depth < 10){
+			 obj[key]=this.Keysort(obj[key], true, depth);
+		  }
+		  o[key]=obj[key];
+		  return o;
+	   },{});
+	   return ordered;
+	},
+	// compare two objects, key by key
+	COMPARE:function(ob1, ob2){
+		if(typeof ob1 !== "object" || typeof ob2 !== "object"){return false;}
+		if(Object.keys(ob1).length !== Object.keys(ob2).length){return false;}
+		var cmp=true;
+		for(var mem in ob1)
+		{
+		   if(typeof ob1[mem] === "object"){
+			  cmp=this.COMPARE(ob1[mem], ob2[mem]);
+		   }else{
+			  cmp=(ob1[mem] === ob2[mem]);
+		   }
+		   if(!cmp){return false;}
+		}
+		return true;
+	},
+	// a control to set how deep clone will run recursively
+	CLONE_depthLimit:20,
+	// clone an object
 	CLONE:(function(){
 		return function(obj, depth, callDepth){
 			depth=depth || 1;
