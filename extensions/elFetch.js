@@ -75,6 +75,8 @@ function ElFetch( target,fetchMessage, file, config, responseType,responseHandle
             m=("There was a problem submitting. Possibly a network error. Please try again.");
         }
         console.log(file+" Fetch Error: "+m);
-        _el.APPEND(target, m);
+		if(!responseHandlers.quietError){
+			_el.APPEND(target, m);
+		}
     });
 }
