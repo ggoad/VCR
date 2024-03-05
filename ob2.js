@@ -70,7 +70,7 @@ _ob={
 			if(obj instanceof Date){
 				return new Date(obj.getTime());
 			}
-			if(this.IS_array(obj)){
+			if(Array.isArray(obj)){
 				var retArr=[];
 				for(var i=0; i<obj.length; i++)
 				{
