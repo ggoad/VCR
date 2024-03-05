@@ -13,12 +13,6 @@ _ob={
 			return obj;
 		};
 	})(),
-	/* is Array polyfill */
-	IS_array:function(a){
-		if(Array.isArray && Array.isArray(a)){
-			return true;
-		}return false;
-	},
 	/* combine 2 object into a new object */
 	COMBINE:function(ob1, ob2){
 		ob1=ob1 || {};
