@@ -11,9 +11,9 @@
 <script src="hist.js"></script>
 
 <script>
-// Declare a view controler. View controlers can be nested. 
+// Declare a view controler. View controlers can be nested by using a parent controler to captrue a child controler
 //  See VC.prototype.CAPTURE and VC.prototype.LAUNCH
-//  the argument is targetFunction a function that returns the element that the VC controls
+//  @param targetFunction : a function that returns the element that the VC controls
 VCR.main=new VC(
 	function(){
 		return document.body;
@@ -21,9 +21,9 @@ VCR.main=new VC(
 );
 
 
-// add a few views... the arguments are:
-//    name      (string)
-//    viewFunct (function of a view controler - in this case main) 
+// add a few views...
+//    @param name      (string)
+//    @param viewFunct (function of a view controler - in this case main) 
 
 VCR.main.REGISTER_view('home',function(a){
 

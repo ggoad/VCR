@@ -1,24 +1,24 @@
 /* START _element */
 _el={
-	// cancel an event
+	/* cancel an event */
     CancelEvent:function(e){e.preventDefault(); e.cancelBubble=true;},
-	// move an id from 1 element to another 
+	/* move an id from 1 element to another */
     MoveId:function(id,el){
        (document.getElementById(id) || {}).id='';
        el.id=id;
     },
-	// this is a helper for CREATE
+	/* this is a helper for CREATE */
     PARSE_element:function(a){
        if(typeof a === "string"){return this.TEXT(a);}
        return a;
     },
-	// remove an element
+	/* remove an element */
 	REMOVE:function(e){
 		if(e && e.parentNode){e.parentNode.removeChild(e);}
 	},
-	// append an element to a parent, returns the parent
+	/* append an element to a parent, returns the parent */
 	APPEND:function(p,c){
-		if(_ob.IS_array(c)){
+		if(Array.isArray(c)){
 			for(var i=0; i<c.length; i++)
 			{
 				p.appendChild(this.PARSE_element(c[i]));
@@ -28,7 +28,7 @@ _el={
 		}
 		return p;
 	},
-	// append an element to a parent, returns the child
+	/* append an element to a parent, returns the child */
 	_APPEND:function(p,c){
 		if(Array.isArray(c)){
 		   c.forEach(function(a){p.appendChild(_el.PARSE_element(c));});
@@ -80,11 +80,11 @@ _el={
 		}
 		return ret;
 	},
-	// create a text node
+	/* create a text node */
 	TEXT:function(txt){
 		return document.createTextNode(txt);
 	},
-	// removes all child elements
+	/* removes all child elements */
 	EMPTY:function(el){
 		if(el && el.childNodes){
 			for(var i=0; i<el.childNodes.length; i++)

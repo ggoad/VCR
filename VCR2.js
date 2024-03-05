@@ -20,12 +20,12 @@
 */
 
 function VC(targetFunct, insertOb, config){
-	// view indexes
+	/* view indexes */
 	this.currentView=0;
 	this.previousView=0;
 	this.nextView=0;
 	
-	// a list of functions
+	/* a list of functions */
 	this.views=[];
 	
 	/* 
@@ -35,7 +35,7 @@ function VC(targetFunct, insertOb, config){
     this.indexMap={}; 
     this.safeMap={};
 
-	// overwrites the target funct if one has been provided.
+	/* overwrites the target funct if one has been provided. */
 	if(targetFunct){
 		this.targetFunct=targetFunct;
 	}
@@ -46,7 +46,7 @@ function VC(targetFunct, insertOb, config){
 	this.activeConfig=this.config;
 	
 	
-	// event ques
+	/* event ques */
 	this.onchange=[];
 	this.afterchange=[];
 	this.onrelease=[];
@@ -61,7 +61,7 @@ function VC(targetFunct, insertOb, config){
 	this.capConfig=null;
 	this.capChildren=[];
 
-	// these registries can be used to register things that need cleaning up upon change
+	/* these registries can be used to register things that need cleaning up upon change */
 	this.reg_elements=[];
 	this.reg_timeouts=[];
 	this.reg_intervals=[];
@@ -77,14 +77,14 @@ function VC(targetFunct, insertOb, config){
 		}
 	}
 }
-VC.prototype.is_VC=true; // a quick check so you don't have to check against prototype
+VC.prototype.is_VC=true; /* a quick check so you don't have to check against prototype */
 
-// This function is the default target function. This is called to indicate the container that the view controller has control of.
+/* This function is the default target function. This is called to indicate the container that the view controller has control of. */
 VC.prototype.targetFunct=function(){
 	return document.body;
 }
 
-// returns a lits of the names of all the views
+/* returns a lits of the names of all the views */
 VC.prototype.GET_viewList=function(){
    return Object.values(this.indexMap);
 }
@@ -144,7 +144,7 @@ VC.prototype.PUSH_viewData=function(dat){
    this.stagedViewData=dat;
 }
 
-// returns the view data of the current view
+/* returns the view data of the current view */
 VC.prototype.GET_viewData=function(){
    return this[this.GET_viewName()].viewData;
 }
@@ -175,41 +175,41 @@ VC.prototype.REGISTER_view=function(name, f, insertOb, config){
 	this.config[name]=config || {};
 }
 
-// registers a function to be called upon change or realease
+/* registers a function to be called upon change or realease */
 VC.prototype.REGISTER_changeANDrelease=function(f){
         this.onrelease.push(f);this.onchange.push(f);
 }
 
-// registers a function to be called upon release
+/* registers a function to be called upon release */
 VC.prototype.REGISTER_release=function(f){
    this.onrelease.push(f);
 }
 
-// registeres an object to have for  o.good=false; upon change
+/* registeres an object to have for  o.good=false; upon change */
 VC.prototype.REGISTER_goodObject=function(o){
 	this.reg_goodObjects.push(o);
 	return o;
 }
 
-// registers an element to be removed upon change
+/* registers an element to be removed upon change */
 VC.prototype.REGISTER_element=function(e){
     this.reg_elements.push(e);
     return e;
 }
 
-// registers a timeout to be cleared upon change
+/* registers a timeout to be cleared upon change */
 VC.prototype.REGISTER_timeout=function(t){
     this.reg_timeouts.push(t);
     return t;
 }
 
-//  registers an interval to be canceled upon change.
+/*  registers an interval to be canceled upon change. */
 VC.prototype.REGISTER_interval=function(i){
     this.reg_intervals.push(i);
     return i;
 }
 
-// iterates through all of the registries and cleans up with the apropriate action
+/* iterates through all of the registries and cleans up with the apropriate action */
 VC.prototype.CLEANUP=function(){
     while(this.reg_elements.length){
            _el.REMOVE(this.reg_elements.pop());
@@ -293,7 +293,7 @@ VC.prototype.CHANGE=function(v, dat, f, config){
 	}
 }
 
-// this is used to determine when it's time to write to the browser's history
+/* this is used to determine when it's time to write to the browser's history */
 VC.prototype.VCR_depth=0; 
 
 /*
@@ -334,7 +334,7 @@ VC.prototype.CAPTURE=function(par, tar, conf){
 	}
 }
 
-// this function releases a view controler, and returns it to its default behavior
+/* this function releases a view controler, and returns it to its default behavior */
 VC.prototype.RELEASE=function(){
     this.active=false;
 	this.captured=false;
@@ -354,23 +354,23 @@ VC.prototype.RELEASE=function(){
 	}
 }
 
-// go to next view
+/* go to next view */
 VC.prototype.INCR=function(){
     this.CHANGE((this.currentView+1)%this.views.length);
 }
 
-// go to previous view
+/* go to previous view */
 VC.prototype.DECR=function(){
     var c=this.currentView-1; 
     if(c<0){c=this.views.length-1;}
     this.CHANGE(c);
 }
 
-// asks if a particular view is present in the view controler
+/* asks if a particular view is present in the view controler */
 VC.prototype.HAS_view=function(str){
     return (Object.values(this.safeMap).indexOf(str) >= 0);
 }
 
-// the global variable to hold all your VC instantiations.
-// the history library looks here to save view state.
+/* the global variable to hold all your VC instantiations.
+	the history library looks here to save view state.*/
 var VCR={};

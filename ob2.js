@@ -1,6 +1,6 @@
 /* START _object */
 _ob={
-	// this is a legacy function. A long time ago, this was how you 'did' inheritance in JS
+	/* this is a legacy function. A long time ago, this was how you 'did' inheritance in JS */
 	COPY_proto:(function(){
 		function Temp(){}
 		return function(O){
@@ -13,15 +13,13 @@ _ob={
 			return obj;
 		};
 	})(),
-	// is Array polyfill
+	/* is Array polyfill */
 	IS_array:function(a){
 		if(Array.isArray && Array.isArray(a)){
 			return true;
-		}if(typeof a === "object" && a.constructor === Array){
-			return true;
 		}return false;
 	},
-	// combine 2 object into a new object
+	/* combine 2 object into a new object */
 	COMBINE:function(ob1, ob2){
 		ob1=ob1 || {};
 		ob2=ob2 || {};
@@ -30,7 +28,7 @@ _ob={
 		this.INSERT(ret, ob2);
 		return ret;
 	},
-	// insert members into a reciever object
+	/* insert members into a reciever object */
 	INSERT:function(reciever, con){
 		con = con || {};
 		for(var mem in con)
@@ -38,24 +36,11 @@ _ob={
 			reciever[mem]=con[mem];
 		}
 	},
-	//  this could probably be removed
+	/*  this could probably be removed */
 	PARSE_default:function(def,set){
 	   return this.COMBINE(def,set);
 	},
-	// have an object sorted by the key values
-	Keysort:function(obj, recur, depth){
-	   depth=depth || 0;
-	   depth++;
-	   var ordered=Object.keys(obj).sort().reduce(function(o,key){
-		  if(recur && typeof obj[key] === "object" && depth < 10){
-			 obj[key]=this.Keysort(obj[key], true, depth);
-		  }
-		  o[key]=obj[key];
-		  return o;
-	   },{});
-	   return ordered;
-	},
-	// compare two objects, key by key
+	/* compare two objects, key by key */
 	COMPARE:function(ob1, ob2){
 		if(typeof ob1 !== "object" || typeof ob2 !== "object"){return false;}
 		if(Object.keys(ob1).length !== Object.keys(ob2).length){return false;}
@@ -71,9 +56,9 @@ _ob={
 		}
 		return true;
 	},
-	// a control to set how deep clone will run recursively
+	/* a control to set how deep clone will run recursively */
 	CLONE_depthLimit:20,
-	// clone an object
+	/* clone an object */
 	CLONE:(function(){
 		return function(obj, depth, callDepth){
 			depth=depth || 1;
@@ -115,5 +100,15 @@ _ob={
 		};
 	})()
 };
+
+/* Array.isArray polyfill */
+if(!Array.isArray){
+	Array.isArray=function(a){
+		if(typeof a === "object" && a.constructor === Array){
+			return true;
+		}
+	}
+}
+	
 
 /* END _object*/

@@ -1,4 +1,4 @@
-// history library
+/* history library */
 _hist={
 	incrId:0,
    firstHistory:true,
@@ -8,7 +8,7 @@ _hist={
    documentTitle:'',
    globOb:null,
    
-   // this function should just be invoked automatically on popstate
+   /* this function should just be invoked automatically on popstate */
    GRAB_addr:function(){
       if(history && history.state && history.state.VCR){
          var VCRaddr=history.state.VCR;
@@ -26,14 +26,14 @@ _hist={
 };
 
 
-// this is for reloading the page in the middle of browsing.
+/* this is for reloading the page in the middle of browsing. */
 if(history && history.state && history.state.stateId){
 	_hist.incrId=history.state.stateId;
 }
 
 
 if(history && history.pushState){
-	// this is added to the VC to indicate the way that the history is added
+	/* this is added to the VC to indicate the way that the history is added */
 	VC.prototype.LOG_change=function(){
 		var uriOb={};
 		  
@@ -59,7 +59,7 @@ if(history && history.pushState){
 		if(_hist.logflag){
 			if(!_hist.firstHistory && !_ob.COMPARE(uriOb, _hist.uriOb)){
 				_hist.incrId++;
-				history.pushState(_ob.COMBINE({VCR:uriOb, stateId:_hist.incrId}, globOb),"",_hist.url || undefined);  
+				history.pushState(_ob.COMBINE({VCR:uriOb, stateId:_hist.incrId}, globOb),"",_hist.url || undefined); 
 			}else{
 				_hist.firstHistory=false;
 	  
@@ -73,7 +73,7 @@ if(history && history.pushState){
 	  
 	};
 	
-	// handle browser history change events.
+	/* handle browser history change events. */
 	onpopstate=function(){
 		var state=history.state;
 		if(!state){
