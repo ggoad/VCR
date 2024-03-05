@@ -1,7 +1,8 @@
-/// this is normaly hooked into a template pipeline
+/*// this is normaly hooked into a template pipeline
 // `--CookieManager-StorageName--` can be whatever you want it to be
 // `--CookieManager-SiteCookies--` is the list of cookies you can ask permission for
 // 	see the comment above site cookies for examples
+*/
 CookieManager=(function(){ 
 	var permissions=localStorage.getItem('`--CookieManager-StorageName--`');
 
@@ -46,7 +47,8 @@ CookieManager=(function(){
                          console.log('youtube added');
                       }
                    },
-                },*/siteCookies:`--CookieManager-SiteCookies--`,
+                },*/
+				siteCookies:`--CookieManager-SiteCookies--`,
                 SoftAdd:function(name){
                    if(this.siteCookies[name].listeners.length){this.Add(name);}
                 },
@@ -111,7 +113,7 @@ CookieManager=(function(){
 		GetPermission:function(name, el, success, reason){
                         var t=this;
                         reason= reason || "for this section to function";
-                        if(!_ob.Array.isArray(name)){
+                        if(!Array.isArray(name)){
                            name=[name];
                         }
                         name.forEach(function(n){if(!t.siteCookies[n]){throw new Error("Could not find cookie. "+n);}});
