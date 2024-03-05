@@ -63,7 +63,7 @@ CookieManager=(function(){
                 },
                 PermissionPlaceholder:function(cooks, reason){
                    var t=this;
-                   if(!_ob.IS_array(cooks)){cooks=[cooks];}
+                   if(!Array.isArray(cooks)){cooks=[cooks];}
                    return _el.CREATE('div','','CookieManager-PermissionPlaceholder',{},[
                       _el.CREATE('div','','',{},["A cookie is required ", reason]),
                       _el.CREATE('button','','',{
@@ -111,7 +111,7 @@ CookieManager=(function(){
 		GetPermission:function(name, el, success, reason){
                         var t=this;
                         reason= reason || "for this section to function";
-                        if(!_ob.IS_array(name)){
+                        if(!_ob.Array.isArray(name)){
                            name=[name];
                         }
                         name.forEach(function(n){if(!t.siteCookies[n]){throw new Error("Could not find cookie. "+n);}});
